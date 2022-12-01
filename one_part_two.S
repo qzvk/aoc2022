@@ -8,7 +8,9 @@
 
 _start:
     mov rax, 0 # current counter
-    mov r8, 0 # max counter
+    mov r9, 0 # max counter
+    mov r10, 0 # 2nd max counter
+    mov r11, 0 # 3rd max counter
     lea rsi, [rip + input] # Load calories ptr
     mov dx, [rip + input_length] # load length
 
@@ -27,16 +29,32 @@ loop_start:
     jmp loop_start # go back to start of loop
 
 end_of_block:
-    mov r9, rax # copy counter out of rax
+    mov r8, rax # copy counter out of rax
     mov rax, 0 # clear the counter
-    cmp r9, r8 # compare current and max counter
-    jle loop_start # if current <= max: go to start of loop
-    mov r8, r9 # otherwise, update max value
-    jmp loop_start # go back to start
+
+    cmp r8, r9
+    jle check_second_max
+    mov r11, r10
+    mov r10, r9
+    mov r9, r8
+    jmp loop_start
+check_second_max:
+    cmp r8, r10
+    jle check_third_max
+    mov r11, r10
+    mov r10, r8
+    jmp loop_start
+check_third_max:
+    cmp r8, r11
+    jle loop_start
+    mov r11, r8
+    jmp loop_start
 
 loop_end:
-    mov rdi, r8
-    call show_qword # Print max counter to stdout.
+    mov rdi, r9
+    add rdi, r10
+    add rdi, r11
+    call show_qword # Print total of max counters to stdout.
 
     # Exit system call
     mov rax, 60
