@@ -1,22 +1,24 @@
 .global _start
 
 .extern show_qword
+.extern input
+.extern input_length
 
 .text
 
 _start:
     mov rax, 0 # current counter
     mov r8, 0 # max counter
-    lea rsi, [rip + calories] # Load calories ptr
-    mov rdx, 15 # element counter
+    lea rsi, [rip + input] # Load calories ptr
+    mov dx, [rip + input_length] # load length
 
 loop_start:
     test rdx, rdx # check the counter
     jz loop_end # if zero, stop
     dec rdx # decrement counter
 
-    mov cx, [rsi] # load next calorie value
-    add rsi, 2 # increment pointer
+    mov ecx, [rsi] # load next calorie value
+    add rsi, 4 # increment pointer
 
     test rcx, rcx # check loaded value
     jz end_of_block # if zero, its the end of a value block
