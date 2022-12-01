@@ -1,3 +1,11 @@
+# Solution for day 1 part 1
+#
+# This works by running over each entry in the data, taking the sum of consecutive values.
+# While iterating over the input, a zero is interpreted as an 'end of block.' At this point
+# The current sum is compared to a 'max counter' and, if larger, is used as the new max.
+#
+# By the end, the max counter contains the greatest sum of consecutive values.
+
 .global _start
 
 .extern show_qword

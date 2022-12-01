@@ -1,3 +1,9 @@
+# Solution for day 1 part 2
+#
+# This works the same as d1p1 except it tracks the three highest values, summing them at the end.
+# At the end of a block, the block counter is 'sorted' into the set of greatest values.
+# At the end of input, these three values are summed.
+
 .global _start
 
 .extern show_qword

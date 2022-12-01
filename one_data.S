@@ -1,3 +1,7 @@
+# Input data for Day 1
+# I don't know if this is technically cheating?
+# If i have spare time I might write a scanf routine over stdin?
+
 .global input
 .global input_length
 
