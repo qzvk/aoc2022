@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-all: one one_part_two
+all: one one_part_two two
 
 clean:
 	rm -r $(shell ls | grep -v Makefile)
@@ -9,6 +9,9 @@ one: one.o one_data.o show_qword.o
 	ld.lld $^ -o $@
 
 one_part_two: one_part_two.o one_data.o show_qword.o
+	ld.lld $^ -o $@
+
+two: two.o two_data.o show_qword.o
 	ld.lld $^ -o $@
 
 %.o: ../%.S
